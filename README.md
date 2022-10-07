@@ -1,0 +1,1 @@
+npm i express-handlebars mysql2 sequelize dotenv bcrypt express-session connect-session-sequelize
