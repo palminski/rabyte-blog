@@ -4,10 +4,16 @@ const sequelize = require('./config/connection');
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3001;
+//Requirements for routers
+const routes = require('./controllers/')
 //<><><><><><><><><><><><><><><><><><><><><><><><><><><>
 
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+//use routers
+app.use(routes);
 
 //Sets up sequelize and starts server
 sequelize.sync({ force:false }).then(()=> {
