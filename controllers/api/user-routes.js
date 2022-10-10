@@ -38,7 +38,7 @@ router.get('/:id', (req,res) => {
     })
     .then(dbUserData => {
         if (!dbUserData) {
-            req.status(404).json({ message: "Uh Oh, User not found"});
+            res.status(404).json({ message: "Uh Oh, User not found"});
         }
         res.json(dbUserData);
     })
