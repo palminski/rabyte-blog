@@ -64,5 +64,29 @@ router.post('/', (req,res) => {
     });
 });
 
+//login
+router.post('/login', (req, res) => {
+    User.findOne({
+        where: {
+            username: req.body.username
+        }
+    })
+    .then(userData => {
+        if (!userData) {
+            res.status(400).json({ message: "No user found!" })
+            return;
+        }
+
+        const validPassword = userData.checkPassword(req.body.password);
+
+        if (!validPassword){
+            res.status(400).json({ message: 'Password Incorrect!' });
+            return;
+        }
+
+        res.json({message: "logged in!"})
+    });
+});
+
 //<><><><><><><><><><><><>
 module.exports = router;
