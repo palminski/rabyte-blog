@@ -8,4 +8,8 @@ router.get('/login',(req, res) => {
     res.render('login'); //name of template to use
 });
 
+router.get('/signup',(req, res) => {
+    res.render('signup'); //name of template to use
+});
+
 module.exports = router;
