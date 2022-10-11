@@ -1,1 +1,8 @@
-<h2>THIS IS THE HOMEPAGE</h2>
+<h2>Blog Posts</h2>
+<ul class="post-list">
+    {{#each posts as |post|}}
+    <li>
+        {{> post-info post}}
+    </li>
+    {{/each}}
+</ul>

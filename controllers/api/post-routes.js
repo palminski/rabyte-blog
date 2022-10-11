@@ -49,7 +49,7 @@ router.post('/',(req,res) => {
     Post.create({
         title: req.body.title,
         text_content: req.body.text_content,
-        user_id: req.body.user_id //This will change to session ID once that is set up
+        user_id: req.session.user_id //This will change to session ID once that is set up
     })
     .then(postData => {
         res.json(postData);

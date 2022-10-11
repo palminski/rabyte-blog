@@ -1,18 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ra-byte</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
+
 <body>
     <header>
-        
+
         <h1>
             <a href="/">Ra-byte Blog</a>
         </h1>
         <nav>
+
+            {{#if loggedIn}}
+            <h3 style="display: inline; padding-right:5px">
+                <a href="/dashboard">Dashboard</a>
+            </h3>
+
+            <h3 style="display: inline; padding-right:5px">
+                <button id="logout">Log Out</button>
+            </h3>
+            
+            {{else}}
+
             <h3 style="display: inline; padding-right:5px">
                 <a href="/login">Log In</a>
             </h3>
@@ -20,14 +35,8 @@
             <h3 style="display: inline; padding-right:5px">
                 <a href="/signup">Sign Up</a>
             </h3>
+            {{/if}}
 
-            <h3 style="display: inline; padding-right:5px">
-                <a href="/login">Log Out</a>
-            </h3>
-
-            <h3 style="display: inline; padding-right:5px">
-                <a href="/login">Dashboard</a>
-            </h3>
         </nav>
     </header>
     <hr>
@@ -36,7 +45,14 @@
     </main>
     <hr>
     <footer>
-        Made by William Bolls
+        {{#if loggedIn}}
+        Logged in as <a href="/dashboard">{{user}}</a>
+        {{/if}}
     </footer>
+    {{#if loggedIn}}
+    <script src="/javascript/logout.js"></script>
+    {{/if}}
+
 </body>
+
 </html>

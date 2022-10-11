@@ -56,7 +56,14 @@ router.post('/', (req,res) => {
         password: req.body.password
     })
     .then(dbUserData => {
-        res.json(dbUserData);
+        //For session
+        req.session.save(()=> {
+            req.session.user_id = dbUserData.id;
+            req.session.username = dbUserData.username;
+            req.session.loggedIn = true;
+
+            res.json(dbUserData);
+        });        
     })
     .catch(err => {
         console.log(err);
@@ -84,13 +91,27 @@ router.post('/login', (req, res) => {
             return;
         }
 
-        res.json({message: "logged in!"})
+        //For session
+        req.session.save(()=> {
+            req.session.user_id = userData.id;
+            req.session.username = userData.username;
+            req.session.loggedIn = true;
+
+            res.json({message: "logged in!"});
+        });
     });
 });
 
 //logout 
 router.post('/logout', (req,res) => {
-    //
+    if (req.session.loggedIn) {
+        req.session.destroy(() => {
+            res.status(204).end()
+        });
+    }
+    else {
+        res.status(404).end();
+    }
 })
 
 //<><><><><><><><><><><><>
