@@ -16,6 +16,10 @@ body{
 ul {
     list-style-type: none;
 }
+
+p {
+    white-space: pre-wrap;
+}
 /* li {
     background-color: antiquewhite;
 }
