@@ -77,6 +77,48 @@ router.get('/post/:id', (req,res) => {
     });
 });
 
+//Edit post
+router.get('/post/edit/:id', (req,res) => {
+    Post.findOne({
+        where: {
+            id: req.params.id
+        },
+        attributes: [
+            'id',
+            'title',
+            'text_content',
+            'created_at'
+        ],
+        include: [
+            {
+                model: Comment,
+                attributes: ['id','text_content', 'post_id', 'user_id', 'created_at'],
+                include: {
+                    model: User,
+                    attributes: ['username']
+                }
+            },
+            {
+                model: User,
+                attributes: ['username']
+            }
+        ]
+    })
+    .then(postData => {
+        //
+        if (!postData) {
+            res.status(404).json({message: "No post found"});
+            return;
+        }
+        const post = postData.get({plain: true});
+        res.render('edit-post', {post, loggedIn: req.session.loggedIn, user: req.session.username});
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+});
+
 //Dashboard
 router.get('/dashboard',(req, res) => {
     if (!req.session.loggedIn) {

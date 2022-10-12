@@ -60,5 +60,55 @@ router.post('/',(req,res) => {
     });
 });
 
+//PUT---------------------------
+//update post
+router.put('/:id', (req,res) => {
+    Post.update(
+        {
+            title: req.body.title,
+            text_content:req.body.text_content
+        },
+        {
+            where: {
+                id: req.params.id
+            }
+        }
+    )
+    .then(dbPostData => {
+        if(!dbPostData) {
+            res.status(404).json({ message: 'post not found'});
+            return;
+        }
+        res.json(dbPostData);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+});
+
+//DELETE--------------------------
+//delete post
+router.delete('/:id', (req,res) => {
+    Post.destroy(
+        {
+            where: {
+                id: req.params.id
+            }
+        }
+    )
+    .then(dbPostData => {
+        if(!dbPostData) {
+            res.status(404).json({ message: 'post not found'});
+            return;
+        }
+        res.json(dbPostData);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+});
+
 //<><><><><><><><><><><><>
 module.exports = router;

@@ -1,0 +1,22 @@
+<article>
+    <a href="/dashboard">&larr; Return</a>
+    <h2>Edit</h2>
+    <form class="edit-post-form">
+        <div>
+            <label for="title-field">Post Title:</label>
+            <input type="text" id="title-field" name="title-field" value="{{post.title}}">
+        </div>
+        <div>
+            <textarea name="text-field" id="text-field" cols="80" rows="10">{{post.text_content}}</textarea>
+        </div>
+        <div>
+            <button type="submit">Update</button>
+        </div>
+    </form>
+    <br>
+    <button id="delete-post-button" style="background-color: red; color:aliceblue">Delete Post</button>
+</article>
+<hr>
+{{>comments post.comments}}
+<script src="/javascript/edit-post.js"></script>
+<script src="/javascript/delete-post.js"></script>

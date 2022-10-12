@@ -16,7 +16,7 @@
 <ul class="post-list">
     {{#each posts as |post|}}
     <li>
-        {{> post-info post}}
+        {{> post-info post}}--- <a href="/post/edit/{{id}}">edit post</a><hr>
     </li>
     {{/each}}
 </ul>
