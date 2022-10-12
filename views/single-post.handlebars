@@ -3,3 +3,19 @@
     <hr>
     <p>{{post.text_content}}</p>
 </article>
+<hr>
+{{!--  --}}
+{{#if loggedIn}}
+<form id="comment-form">
+<h3>Add A Comment!</h3>
+<textarea name="comment-text" id="comment-text" cols="50" rows="5" placeholder="Add a comment here!"></textarea>
+<button id="comment-submit">Submit</button>
+</form>
+{{else}}
+<h3><a href="/login">Login</a> or <a href="/signup">signup</a> to leave comments!</h3>
+{{/if}}
+<hr>
+{{>comments post.comments}}
+{{#if loggedIn}}
+<script src="/javascript/comment.js"></script>
+{{/if}}

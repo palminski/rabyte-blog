@@ -9,7 +9,7 @@ router.post('/', (req,res) => {
         Comment.create(
             {
                 text_content: req.body.text_content,
-                user_id: req.body.user_id, //Replace with session ID
+                user_id: req.session.user_id, //Replace with session ID
                 post_id: req.body.post_id
             }
         )

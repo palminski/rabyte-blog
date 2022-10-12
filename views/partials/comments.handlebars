@@ -1,0 +1,13 @@
+<div class="comments">
+    {{#each this}}
+    <section class="comment">
+        <div class="poster-info">
+            === {{user.username}} on {{created_at}} ===
+        </div>
+        <div class="text_content">
+            => {{text_content}}
+        </div>
+    </section>
+    <br>
+    {{/each}}
+</div>
