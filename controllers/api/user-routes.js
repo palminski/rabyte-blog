@@ -50,7 +50,19 @@ router.get('/:id', (req,res) => {
 
 //POST------------------
 //Make new user
-router.post('/', (req,res) => {
+router.post('/', async (req,res) => {
+    const userExists = await User.findOne({
+        where: {
+            username: req.body.username
+        }
+    });
+    if (userExists){
+        console.log('userExists----------------------');
+        res.status(409).json({ message: "User exists already" })
+        return;
+    }
+
+
     User.create({
         username: req.body.username,
         password: req.body.password
