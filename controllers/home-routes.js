@@ -1,5 +1,5 @@
 const { Post, User, Comment } = require('../models');
-
+const authenticate = require('../utils/auth');
 const router = require('express').Router();
 
 //Homepage
@@ -78,7 +78,7 @@ router.get('/post/:id', (req,res) => {
 });
 
 //Edit post
-router.get('/post/edit/:id', (req,res) => {
+router.get('/post/edit/:id',authenticate, (req,res) => {
     Post.findOne({
         where: {
             id: req.params.id
@@ -87,7 +87,8 @@ router.get('/post/edit/:id', (req,res) => {
             'id',
             'title',
             'text_content',
-            'created_at'
+            'created_at',
+            'user_id'
         ],
         include: [
             {
@@ -106,11 +107,16 @@ router.get('/post/edit/:id', (req,res) => {
     })
     .then(postData => {
         //
+        
         if (!postData) {
             res.status(404).json({message: "No post found"});
             return;
         }
         const post = postData.get({plain: true});
+        if (post.user_id !== req.session.user_id) {
+            console.log('WRONG USER');
+            res.redirect('/');
+        }
         res.render('edit-post', {post, loggedIn: req.session.loggedIn, user: req.session.username});
     })
     .catch(err => {
@@ -120,7 +126,7 @@ router.get('/post/edit/:id', (req,res) => {
 });
 
 //Dashboard
-router.get('/dashboard',(req, res) => {
+router.get('/dashboard',authenticate,(req, res) => {
     if (!req.session.loggedIn) {
         console.log("REDIRECTED");
         res.redirect('/');

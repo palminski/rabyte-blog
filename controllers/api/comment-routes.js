@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const { User, Post, Comment } = require('../../models'); //grabs from index file
+const authenticate = require('../../utils/auth.js');
 //<><><><><><><><><><><><>
 
-router.post('/', (req,res) => {
+router.post('/', authenticate, (req,res) => {
 
     // if (req.session) {
         console.log(req.body)
